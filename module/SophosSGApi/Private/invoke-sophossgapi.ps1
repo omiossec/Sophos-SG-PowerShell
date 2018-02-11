@@ -34,7 +34,7 @@ function invoke-sophossgapi {
         [parameter(Mandatory=$true)]
         $uri,
         [parameter(Mandatory=$true)]
-        [ValidateSet("get","post","delete","patch","put")]
+        [ValidateSet("Get","Post","Delete","Patch","Put")]
         $method,
         [parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty]
@@ -64,12 +64,12 @@ function invoke-sophossgapi {
 
                 $body = $body | ConvertTo-Json
 
-                $result = Invoke-RestMethod -Method $methode -uri $uri -Credential $AuthentificationToken -ContentType "application/json" -Headers $headers
+                $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken -ContentType "application/json" -Headers $headers
     
     
             }
             else {
-                $result = Invoke-RestMethod -Method $methode -uri $uri -Credential $AuthentificationToken
+                $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken
     
             }
             

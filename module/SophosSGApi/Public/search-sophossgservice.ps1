@@ -64,7 +64,7 @@ function search-sophossgservice {
 
         }
 
-    }
+    
     process {
 
         $ProtoToUri = @{

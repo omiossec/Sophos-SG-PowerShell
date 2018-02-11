@@ -10,6 +10,8 @@ function get-sophossgmasq {
         Specifies the URI
     .PARAMETER Ref
         Specifies the ref to retreive, optional
+    .PARAMETER Resolve
+        Resolve Ip and Service by Name and IP/HOST/Service Definition
     .EXAMPLE
         get-sophossgnat -token "udshdhfd87dhdkj" -uri https://firewallsg:4444 
         retreive all the masquerading object
@@ -33,14 +35,14 @@ function get-sophossgmasq {
         $ref
     )
     
-    $uri = $SGSite + "/api/objects/packetfilter/packetfilter/" 
+    $uri = $SGSite + "/api/objects/packetfilter/masq/" 
 
     if ($PSBoundParameters['ref']) {
         $uri = $uri + $ref
     }
 
 
-    $value = invoke-sophossgapi -token $token -uri $uri -method get 
+    $value = invoke-sophossgapi -token $token -uri $uri -method Get 
 
     return $value
 
