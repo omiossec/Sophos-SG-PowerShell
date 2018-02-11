@@ -1,0 +1,47 @@
+function get-sophossgmasq { 
+    <#
+    .SYNOPSIS
+        Function to retreive masquerading configuration  from the Sophos RestFull API
+    .DESCRIPTION
+        Function to retreive masquerading configuration from the Sophos RestFull API
+    .PARAMETER token
+        Specifies the security token for Sophos RestFull API
+    .PARAMETER SGSite
+        Specifies the URI
+    .PARAMETER Ref
+        Specifies the ref to retreive, optional
+    .EXAMPLE
+        get-sophossgnat -token "udshdhfd87dhdkj" -uri https://firewallsg:4444 
+        retreive all the masquerading object
+        get-sophossgnat -token "udshdhfd87dhdkj"-uri https://firewallsg:4444 -Ref REF_NetHosXXXX
+        retreive the masquerading object for the ref _ref  
+    .NOTES
+        Oliver Miossec 
+        @omiossec_med
+        https://www.linkedin.com/in/omiossec/
+    .OUTPUTS
+        MAP 
+    #>
+
+    [cmdletbinding()]
+    param(
+        [parameter(Mandatory=$true)]
+        $token,
+        [parameter(Mandatory=$true)]
+        $SGSite,
+        [parameter(Mandatory=$false)]
+        $ref
+    )
+    
+    $uri = $SGSite + "/api/objects/packetfilter/packetfilter/" 
+
+    if ($PSBoundParameters['ref']) {
+        $uri = $uri + $ref
+    }
+
+
+    $value = invoke-sophossgapi -token $token -uri $uri -method get 
+
+    return $value
+
+}
