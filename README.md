@@ -11,9 +11,9 @@ This module enable Network automation from PowerShell on Sophos SG Firewall.
 - [Installation](#installation)
 - [Download from GitHub repository](#Download-from-GitHub-repository)
 - [Use Cases](#use-cases)
-- [More Information](#more-information)
 - [Notes](#notes)
 - [Support](#Support)
+- [Documentation](#Documentation)
 
 ## Contributing
 
@@ -42,3 +42,7 @@ Please see our [contributing guide](https://github.com/omiossec/Sophos-SG-PowerS
 - PowerShell v5 (not tested yet on PowerShell 6 core)
 - Sophos SG UTM 4.908 and newer
 - A valid certificate on the client computer (the module do not deal yet with invalide certificate)
+
+## Documentation
+
+[See the project Wiki](https://github.com/omiossec/Sophos-SG-PowerShell/wiki)
