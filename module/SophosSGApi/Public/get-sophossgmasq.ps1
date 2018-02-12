@@ -28,11 +28,13 @@ function get-sophossgmasq {
     [cmdletbinding()]
     param(
         [parameter(Mandatory=$true)]
-        $token,
+        [string]$token,
         [parameter(Mandatory=$true)]
-        $SGSite,
+        [string]$SGSite,
         [parameter(Mandatory=$false)]
-        $ref
+        [string]$ref,
+        [parameter(Mandatory=$false)]
+        [switch]$resolve
     )
     
     $uri = $SGSite + "/api/objects/packetfilter/masq/" 
@@ -42,8 +44,8 @@ function get-sophossgmasq {
     }
 
 
-    $value = invoke-sophossgapi -token $token -uri $uri -method Get 
+    $MasqueradingJsonData = invoke-sophossgapi -token $token -uri $uri -method Get 
 
-    return $value
+    return Convert-SophosSgJsonToHastable -JsonObject $MasqueradingJsonData
 
 }

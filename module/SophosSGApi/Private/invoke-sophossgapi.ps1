@@ -30,12 +30,12 @@ function invoke-sophossgapi {
     [cmdletbinding()]
     param(
         [parameter(Mandatory=$true)]
-        $token,
+        [string]$token,
         [parameter(Mandatory=$true)]
-        $uri,
+        [string]$uri,
         [parameter(Mandatory=$true)]
         [ValidateSet("Get","Post","Delete","Patch","Put")]
-        $method,
+        [string]$method,
         [parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty]
         [hashtable]$body
