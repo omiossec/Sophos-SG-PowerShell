@@ -45,7 +45,7 @@ function Convert-SophosSgJsonToHastable {
             
             $HashTable = @{}
             foreach ($property in $JsonObject.PSObject.Properties) {
-                $HashTable[$property.Name] = Convert-SophosSgJsonToHastable -JsonObject $property.Value
+                $HashTable[$property.Name] =  $property.Value
             }
             return $HashTable
         } else {

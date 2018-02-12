@@ -4,6 +4,8 @@ function get-sophossgmasq {
         Function to retreive masquerading configuration  from the Sophos RestFull API
     .DESCRIPTION
         Function to retreive masquerading configuration from the Sophos RestFull API
+        Masquerading enable to masq an IP or an internal network behind a public IP. 
+        It is a special case of SNAT
     .PARAMETER token
         Specifies the security token for Sophos RestFull API
     .PARAMETER SGSite
@@ -13,9 +15,9 @@ function get-sophossgmasq {
     .PARAMETER Resolve
         Resolve Ip and Service by Name and IP/HOST/Service Definition
     .EXAMPLE
-        get-sophossgnat -token "udshdhfd87dhdkj" -uri https://firewallsg:4444 
+        get-sophossgmasq -token "udshdhfd87dhdkj" -uri https://firewallsg:4444 
         retreive all the masquerading object
-        get-sophossgnat -token "udshdhfd87dhdkj"-uri https://firewallsg:4444 -Ref REF_NetHosXXXX
+        get-sophossgmasq -token "udshdhfd87dhdkj"-uri https://firewallsg:4444 -Ref REF_NetHosXXXX
         retreive the masquerading object for the ref _ref  
     .NOTES
         Oliver Miossec 
@@ -28,19 +30,26 @@ function get-sophossgmasq {
     [cmdletbinding()]
     param(
         [parameter(Mandatory=$true)]
-        [string]$token,
+        [string]
+        $token,
+
         [parameter(Mandatory=$true)]
-        [string]$SGSite,
+        [string]
+        $SGSite,
+
         [parameter(Mandatory=$false)]
-        [string]$ref,
+        [string]
+        $ObjectRef,
+
         [parameter(Mandatory=$false)]
-        [switch]$resolve
+        [switch]
+        $resolve
     )
     
-    $uri = $SGSite + "/api/objects/packetfilter/masq/" 
+    $Uri = $SGSite + "/api/objects/packetfilter/masq/" 
 
     if ($PSBoundParameters['ref']) {
-        $uri = $uri + $ref
+        $Uri = $Uri + $ObjectRef
     }
 
 

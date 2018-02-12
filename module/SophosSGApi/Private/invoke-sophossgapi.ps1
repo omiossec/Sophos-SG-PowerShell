@@ -30,15 +30,22 @@ function invoke-sophossgapi {
     [cmdletbinding()]
     param(
         [parameter(Mandatory=$true)]
-        [string]$token,
+        [string]
+        $token,
+
         [parameter(Mandatory=$true)]
-        [string]$uri,
+        [string]
+        $uri,
+
         [parameter(Mandatory=$true)]
         [ValidateSet("Get","Post","Delete","Patch","Put")]
-        [string]$method,
+        [string]
+        $method,
+
         [parameter(Mandatory=$false)]
         [ValidateNotNullOrEmpty]
-        [hashtable]$body
+        [hashtable]
+        $body
     )
 
     begin {
@@ -55,27 +62,30 @@ function invoke-sophossgapi {
 
         try {
 
-            if ($PSBoundParameters.ContainsKey('body'))
-            {
-                $headers = @{
-                    "X-Restd-Err-Ack"="all"
-                    "X-Restd-Lock-Override"="yes"
-                }
 
-                $body = $body | ConvertTo-Json
+            $headers = @{
+               "X-Restd-Err-Ack"="all"
+               "X-Restd-Lock-Override"="yes"
+            }
 
-                $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken -ContentType "application/json" -Headers $headers
-    
-    
-            }
-            else {
-                $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken
-    
-            }
-            
-            
-    
-            return $result
+
+           if ($PSBoundParameters.ContainsKey('body'))
+           {
+               $body = $body | ConvertTo-Json
+
+               $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken -ContentType "application/json" -Headers $headers
+   
+           }
+           elseif ($method -ne "Get") {
+
+               $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken -Headers $headers
+   
+           }
+           else {
+               $result = Invoke-RestMethod -Method $method -uri $uri -Credential $AuthentificationToken
+           }
+           
+           return $result
 
         }
         catch [System.Net.WebException] {
@@ -87,7 +97,7 @@ function invoke-sophossgapi {
             }
             else {
 
-                throw "Receive a http exception StatusCode " + $_.Exception.Response.StatusCode 
+                throw "Receive a http exception StatusCode " + $_.Exception.Response.StatusCode.value__  + "  " + $_.Exception.Response.StatusCode
                 write-debug $_.Exception
             }
         
