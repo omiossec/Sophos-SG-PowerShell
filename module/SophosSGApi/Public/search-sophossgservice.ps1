@@ -44,17 +44,22 @@ function search-sophossgservice {
     param(
         [parameter(Mandatory=$true)]
         $token,
+
         [parameter(Mandatory=$true)]
         $SGSite,
+
         [parameter(Mandatory=$true)]
         [ValidateSet("tcp","udp","tcpudp","IP")]
         $type,
+
         [parameter(Mandatory=$true, parametersetname="setPort")]
         [ValidateRange(1,65535)]
         [int]$Port,
+
         [parameter(Mandatory=$true, parametersetname="setPortRange")]
         [validatepatern("\d{1,5}\:\d{1,5}")]
         [String]$PortRange,
+        
         [parameter(Mandatory=$true, parametersetname="setIpProtocol")]
         [String]$Protocol
     )

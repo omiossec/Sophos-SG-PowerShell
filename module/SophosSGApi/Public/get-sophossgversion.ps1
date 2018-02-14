@@ -22,14 +22,14 @@ function get-sophossgversion {
     #>
 
 
-
     [cmdletbinding()]
     param(
-        [parameter(Mandatory=$true, parametersetname="bySession")]
-        $WebSession,
-        [parameter(Mandatory=$true, parametersetname="byCredential")]
-        $Credential,
         [parameter(Mandatory=$true)]
+        [string]
+        $token,
+
+        [parameter(Mandatory=$true)]
+        [string]
         $SGSite
     )
 
@@ -37,25 +37,15 @@ function get-sophossgversion {
         
                 try {
         
-                    l
+                    
         
                     #build the Uri 
                     
                     $uri = $SGSite + "/api/status/version/"
 
-                    switch($PsCmdlet.ParameterSetName)
-                    {
-                        "bySession" {
-                            $value = Invoke-RestMethod -Method get -uri $uri -WebSession $WebSession
-                        }
-        
-                        "byCredential" {
-                            $value = Invoke-RestMethod -Method get -uri $uri -Credential $Credential
-                        }
-        
-                    }
-        
-                    return $value
+                    $SophosVersionJsonData = invoke-sophossgapi -token $token -uri $uri -method Get 
+
+                    return Convert-SophosSgJsonToHastable -JsonObject $SophosVersionJsonData
 
 
                 }

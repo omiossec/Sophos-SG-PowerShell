@@ -54,21 +54,28 @@ function search-sophossgnetworkobject {
     param(
         [parameter(Mandatory=$true)]
         $token,
+
         [parameter(Mandatory=$true)]
         $SGSite,
+
         [parameter(Mandatory=$true, parametersetname="shIp")]
         [parameter(parametersetname="shRange")]
         [parameter(parametersetname="shNetwork")]
         $ip,
+
         [parameter(Mandatory=$true, parametersetname="shRange")]
         $IPto,
+
         [parameter(Mandatory=$true, parametersetname="shNetwork")]
         $netmasq,
+
         [parameter(Mandatory=$true, parametersetname="shHost")]
         $hostname,
+
         [parameter(Mandatory=$true)]
         [ValidateSet("IP","Range","Network","host")]
         $type,
+        
         [parameter(parametersetname="shNetwork")]
         [switch]$interfacenetwork
 
