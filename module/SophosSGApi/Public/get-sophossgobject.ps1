@@ -14,7 +14,7 @@ function get-sophossgobjects {
         Specifies the Reg
     .PARAMETER Object
         Specifies the Object to search
-        Firewall, Nat, Hosts, Masquerading, InterfacesIP, InterfacesNetwork, InterfacesVlan, InterfaceEth
+        Firewall, Nat, Hosts, Masquerading, InterfacesIP, InterfacesNetwork, InterfacesVlan, InterfaceEth, itfparams/secondary
     .EXAMPLE
         $cred = get-crendatial
         get-sophossgobjects -credential $cred -SGSite "https://firewallsg:4444/" -object nat

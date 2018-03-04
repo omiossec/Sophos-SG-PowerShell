@@ -73,7 +73,7 @@ function search-sophossgnetworkobject {
         $hostname,
 
         [parameter(Mandatory=$true)]
-        [ValidateSet("IP","Range","Network","host")]
+        [ValidateSet("IP","Range","Network","Hosts", "InterfacesIP", "InterfacesIPSecondary")]
         $type,
         
         [parameter(parametersetname="shNetwork")]
@@ -85,27 +85,28 @@ function search-sophossgnetworkobject {
     Process {
 
         try {
-
-
-            
-            $uri = $SGSite + "/api/objects/network/"
+           
+            $uri = $SGSite + "/api/objects/"
 
             switch ($type)
             {
 
-                "IP" { $uri = $uri + "host/" }
-                "Range" { $uri = $uri + "range/" }
+                "IP" { $uri = $uri + "network/host/" }
+                "Range" { $uri = $uri + "network/range/" }
                 "Network" { 
                     if ($interfacenetwork.IsPresent -and $interfacenetwork)
                     {
-                        $uri = $uri + "interface_network/"
+                        $uri = $uri + "network/interface_network/"
                     }
                     else {
-                        $uri = $uri + "network/"         
+                        $uri = $uri + "network/network/"         
                     }
                     
                 }
-                "host" { $uri = $uri + "dns_host/" }
+                "host" { $uri = $uri + "network/dns_host/" }
+                "InterfacesIP" { $uri = $uri + "itfparams/primary/" }
+                "InterfacesIPSecondary" { $uri = $uri + "itfparams/secondary/" }
+
                  
             }
 
